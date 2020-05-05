@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wno-unused-result
 LDFLAGS = -lyaml
-OBJFILES = sha256.o yamltreeutil.o yamltree.o orbis-import.o orbis-import-parse.o orbis-libs-gen.o
+SRC_OBJFILES = sha256.o yamltreeutil.o yamltree.o orbis-import.o orbis-import-parse.o orbis-libs-gen.o
 TARGET = libs-gen
 
 ifeq ($(DEBUG), 1)
@@ -10,7 +10,7 @@ else
 	CFLAGS += -O3
 	LDFLAGS +=  -s
 endif
-
+OBJFILES = $(addprefix src/, $(SRC_OBJFILES))
 
 all: $(TARGET)
 
