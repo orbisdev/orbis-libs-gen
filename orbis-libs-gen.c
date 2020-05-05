@@ -258,10 +258,10 @@ int generate_cmake(orbis_imports_t **imports, int imports_count)
 	fputs(
 		"cmake_minimum_required(VERSION 2.8)\n\n"
 		"if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)\n"
-		"\tif(DEFINED ENV{VITASDK})\n"
-		"\t\tset(CMAKE_TOOLCHAIN_FILE \"$ENV{VITASDK}/share/orbis.toolchain.cmake\" CACHE PATH \"toolchain file\")\n"
+		"\tif(DEFINED ENV{PS4SDK})\n"
+		"\t\tset(CMAKE_TOOLCHAIN_FILE \"$ENV{PS4SDK}/share/orbis.toolchain.cmake\" CACHE PATH \"toolchain file\")\n"
 		"\telse()\n"
-		"\t\tmessage(FATAL_ERROR \"Please define VITASDK to point to your SDK path!\")\n"
+		"\t\tmessage(FATAL_ERROR \"Please define PS4SDK to point to your SDK path!\")\n"
 		"\tendif()\n"
 		"endif()\n"
 		"project(orbislibs)\n"
@@ -341,7 +341,7 @@ int generate_cmake(orbis_imports_t **imports, int imports_count)
 			"foreach(library ${KERNEL_LIBRARIES})\n"
 			"\tadd_library(${library}_stub STATIC ${${library}_ASM})\n"
 			"\ttarget_compile_definitions(${library}_stub PRIVATE -DGEN_WEAK_EXPORTS=0)\n"
-			"\tinstall(TARGETS ${library}_stub DESTINATION $ENV{VITASDK}/arm-orbis-eabi/lib/)\n"
+			"\tinstall(TARGETS ${library}_stub DESTINATION $ENV{PS4SDK}/arm-orbis-eabi/lib/)\n"
 			"endforeach(library)\n\n", fp);
 	}
 
@@ -364,8 +364,8 @@ int generate_makefile(orbis_imports_t **imports, int imports_count)
 	g_kernel_objs[0] = '\0';
 
 	fputs(
-		"ifdef VITASDK\n"
-		"PREFIX = $(VITASDK)/bin/\n"
+		"ifdef PS4SDK\n"
+		"PREFIX = $(PS4SDK)/bin/\n"
 		"endif\n\n"
 		"ARCH ?= $(PREFIX)arm-orbis-eabi\n"
 		"AS = $(ARCH)-as\n"
@@ -485,8 +485,8 @@ int generate_makefile(orbis_imports_t **imports, int imports_count)
 		"$(foreach library,$(TARGETS),$(eval $(call LIBRARY_template,$(library))))\n"
 		"$(foreach library,$(TARGETS_WEAK),$(eval $(call LIBRARY_WEAK_template,$(library))))\n\n"
 		"install: $(TARGETS) $(TARGETS_WEAK)\n"
-		"\tcp $(TARGETS) $(VITASDK)/arm-orbis-eabi/lib\n"
-		"\tcp $(TARGETS_WEAK) $(VITASDK)/arm-orbis-eabi/lib\n\n"
+		"\tcp $(TARGETS) $(PS4SDK)/arm-orbis-eabi/lib\n"
+		"\tcp $(TARGETS_WEAK) $(PS4SDK)/arm-orbis-eabi/lib\n\n"
 		"clean:\n"
 		"\trm -f $(TARGETS) $(TARGETS_WEAK) $(ALL_OBJS)\n\n"
 		"$(TARGETS) $(TARGETS_WEAK):\n"
