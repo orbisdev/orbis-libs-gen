@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wno-unused-result
 LDFLAGS = -lyaml
 OBJFILES = sha256.o yamltreeutil.o yamltree.o orbis-import.o orbis-import-parse.o orbis-libs-gen.o
 TARGET = libs-gen

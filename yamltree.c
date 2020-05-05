@@ -22,6 +22,10 @@ DEALINGS IN THE SOFTWARE.
 
 */
 
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1
+#endif
+
 #include "yamltree.h"
 #include <yaml.h>
 #include <stdio.h>
@@ -51,29 +55,29 @@ char *format_error_string(parser_context *ctx)
 			
 		case YAML_READER_ERROR:
 			if (ctx->parser.problem_value != -1)
-				asprintf(&ptr, "libyaml: reader error: '%s:#%X' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_value, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+				asprintf(&ptr, "libyaml: reader error: '%s:#%X' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_value, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			else
-				asprintf(&ptr, "libyaml: reader error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+				asprintf(&ptr, "libyaml: reader error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		case YAML_SCANNER_ERROR:
-			asprintf(&ptr, "libyaml: scanner error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+			asprintf(&ptr, "libyaml: scanner error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		case YAML_PARSER_ERROR:
-			asprintf(&ptr, "libyaml: parser error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+			asprintf(&ptr, "libyaml: parser error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		case YAML_COMPOSER_ERROR:
-			asprintf(&ptr, "libyaml: composer error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+			asprintf(&ptr, "libyaml: composer error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		case YAML_WRITER_ERROR:
-			asprintf(&ptr, "libyaml: writer error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+			asprintf(&ptr, "libyaml: writer error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		case YAML_EMITTER_ERROR:
-			asprintf(&ptr, "libyaml: emitter error: '%s' at line %d, column %d.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
+			asprintf(&ptr, "libyaml: emitter error: '%s' at line %ld, column %ld.", ctx->parser.problem, ctx->parser.problem_mark.line, ctx->parser.problem_mark.column);
 			break;
 			
 		default:
@@ -163,7 +167,7 @@ static yaml_node *process_scalar(parser_context *ctx)
 	scalar->type = NODE_SCALAR;
 	scalar->position.line = ctx->event.start_mark.line;
 	scalar->position.column = ctx->event.start_mark.column;
-	scalar->data.scalar.value = strdup(ctx->event.data.scalar.value);
+	scalar->data.scalar.value = strdup((const char *)ctx->event.data.scalar.value);
 	scalar->data.scalar.len = ctx->event.data.scalar.length;
 	return scalar;
 }
