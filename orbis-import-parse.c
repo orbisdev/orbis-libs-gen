@@ -261,7 +261,6 @@ orbis_imports_t *orbis_imports_load(const char *filename, int verbose)
 }
 
 orbis_imports_t *orbis_imports_loads(FILE *text, int verbose){
-	uint32_t nid = 0;
 	yaml_error error = {0};
 	
 	yaml_tree *tree = parse_yaml_stream(text, &error);

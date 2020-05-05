@@ -94,7 +94,6 @@ exit_failure:
 
 int generate_assembly(orbis_imports_t **imports, int imports_count)
 {
-	char filename[128];
 	FILE *fp;
 	int h, i, j, k;
 
@@ -244,8 +243,7 @@ int generate_cmake_kernel(FILE *fp, const char *modname, const char *postfix, or
 
 int generate_cmake(orbis_imports_t **imports, int imports_count)
 {
-	int h, i, j, k;
-	int is_special;
+	int h, i, j;
 
 	// TODO: something dynamic
 	libs_t user_libs = {0};
