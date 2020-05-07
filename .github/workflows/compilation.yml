@@ -16,9 +16,13 @@ jobs:
       run: |
         git clone --depth 1  https://github.com/idc/ps4libdoc -b 5.05
 
-    - name: Compile project
+    - name: Compile project (in Release)
       run: |
-        swift run orbis-parser
+        swift build -c release
+    
+    - name: Run project
+      run: |
+        ./.build/release/orbis-parser
     
     - uses: actions/upload-artifact@v2
       with:
