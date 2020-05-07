@@ -22,16 +22,16 @@ private extension OrbisParser {
         
         return enumerator.reduce(into: [URL]()) {
             guard let fileURL = $1 as? URL, fileURL.absoluteString.hasSuffix(Constants.sprxFiles),
-            let attrs = try? fileURL.resourceValues(forKeys:[.isRegularFileKey]),
-            attrs.isRegularFile == true  else { return }
+            let attrs = try? fileURL.resourceValues(forKeys:[.isRegularFileKey]), attrs.isRegularFile == true
+                else { return }
             $0.append(fileURL)
         }
     }
     
     func parseFile(_ fileURL: URL) {
         let filename = fileURL.lastPathComponent.replacingOccurrences(of: Constants.sprxFiles, with: Constants.sFiles)
-
-        guard let data = try? Data(contentsOf: fileURL) else { return }
+        
+        guard Libraries().known.contains(filename), let data = try? Data(contentsOf: fileURL) else { return }
         do {
             let sprx = try JSONDecoder().decode(OrbisSPRX.self, from: data)
 
