@@ -4,7 +4,7 @@ private enum Constants {
     static let outputPath = URL(fileURLWithPath: "output")
     static let inputPath = URL(fileURLWithPath: "ps4libdoc")
     static let sprxFiles = ".sprx.json"
-    static let sFiles = ".s"
+    static let sFiles = ".S"
 }
 
 class OrbisParser {
@@ -49,7 +49,7 @@ private extension OrbisParser {
         if(!fileManager.fileExists(atPath:newFile)){
             fileManager.createFile(atPath: newFile, contents: content.data(using: .utf8), attributes: nil)
         }else{
-            print("File is already created")
+            print("\(newFile) was already created")
         }
     }
     

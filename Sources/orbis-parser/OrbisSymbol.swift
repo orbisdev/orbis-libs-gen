@@ -12,7 +12,7 @@ struct OrbisSymbol: Codable {
             .global \(name)
             .type \(name), @function
             __\(name):
-                .qword 0x\(hex_id)
+                .quad 0x\(hex_id)
             
             """.trimmingCharacters(in: .whitespaces)
     }
