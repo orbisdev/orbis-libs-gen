@@ -9,7 +9,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/libs-gen",
+            "program": "${workspaceFolder}/.build/debug/orbis-parser",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
