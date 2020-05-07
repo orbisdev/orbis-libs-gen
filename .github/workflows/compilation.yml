@@ -8,14 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: swift:5.2.3-bionic
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install libyaml-dev
-      run: |
-        sudo apt-get update
-        sudo apt-get -y install libyaml-dev
-
     - name: Compile project
       run: |
-        make all
+        swift run orbis-parser
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Generated .s files
+        path: output/
