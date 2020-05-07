@@ -12,6 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Donwload ps4libdoc branch 5.05
+      run: |
+        git clone --depth 1  https://github.com/idc/ps4libdoc -b 5.05
+
     - name: Compile project
       run: |
         swift run orbis-parser
