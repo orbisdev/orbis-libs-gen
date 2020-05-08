@@ -18,6 +18,6 @@ You require to have previously downloaded the `sprx.json` files under the `ps4li
 swift run orbis-parser
 ```
 
-All the assembly references will be generated in the `output` folder.
+All the assembly references will be generated in the `lib_s` folder.
 
 ## Thanks to OrbisDev group

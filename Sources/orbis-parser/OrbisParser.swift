@@ -1,7 +1,7 @@
 import Foundation
 
 private enum Constants {
-    static let outputPath = URL(fileURLWithPath: "output")
+    static let outputPath = URL(fileURLWithPath: "lib_s")
     static let inputPath = URL(fileURLWithPath: "ps4libdoc")
     static let sprxFiles = ".sprx.json"
     static let sFiles = ".S"
