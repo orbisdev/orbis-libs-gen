@@ -20,7 +20,7 @@ struct OrbisSymbol: Codable {
         return """
             .global \(name)
             .type \(name), \(assemblyType)
-            __\(name):
+            \(name):
                 .quad 0x\(hex_id)
             
             """.trimmingCharacters(in: .whitespaces)
