@@ -26,8 +26,8 @@ jobs:
     
     - uses: actions/upload-artifact@v2
       with:
-        name: libs
-        path: output/
+        name: lib_s
+        path: lib_s/
 
     - name: Create tag name
       if: startsWith(github.ref, 'refs/tags/') != true
@@ -44,13 +44,13 @@ jobs:
     - name: Prepare Release
       if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
       run: |
-        tar -zcvf libs.tar.gz output
+        tar -zcvf lib_s.tar.gz lib_s
     
     - name: Release
       if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
       uses: softprops/action-gh-release@v1
       with:
-        files: libs.tar.gz
+        files: lib_s.tar.gz.tar.gz
         tag_name: ${{ env.NEW_TAGNAME }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
