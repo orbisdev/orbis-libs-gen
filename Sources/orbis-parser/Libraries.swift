@@ -16,7 +16,7 @@ struct Libraries {
         "libSceGnmDriver.S",
         "libSceGnmDriverForNeoMode.S",
         "libSceGnmDriver_sys.S",
-        "libSceHmd.S",
+        // "libSceHmd.S",
         "libSceHmdSetupDialog.S",
         "libSceIme.S",
         "libSceImeBackend.S",
