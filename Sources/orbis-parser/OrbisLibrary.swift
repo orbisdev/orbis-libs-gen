@@ -7,4 +7,6 @@ struct OrbisLibrary: Codable {
     let symbols: [OrbisSymbol]
     
     var assembly: String { is_export ? symbols.reduce("") { $0 + $1.assembly }  : "" }
+    
+    func assembly(section: String) -> String { is_export ? symbols.reduce("") { $0 + $1.assembly(section: section) }  : "" }
 }
