@@ -14,7 +14,7 @@ jobs:
 
     - name: Donwload ps4libdoc branch 5.05
       run: |
-        git clone --depth 1  https://github.com/idc/ps4libdoc -b 5.05
+        git clone --depth 1  https://github.com/orbisdev/ps4libdoc -b 5.05
 
     - name: Compile project (in Release)
       run: |
