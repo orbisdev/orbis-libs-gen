@@ -58,13 +58,13 @@ jobs:
     - name: Send Compile action
       if: startsWith(github.ref, 'refs/tags/') != true && github.ref != 'refs/heads/master'
       run: |
-        export DISPATCH_ACTION="$(echo run_build)"
+        export DISPATCH_ACTION="$(echo run_build_libs_gen)"
         echo "::set-env name=NEW_DISPATCH_ACTION::$DISPATCH_ACTION"
     
     - name: Send Release action
       if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
       run: |
-        export DISPATCH_ACTION="$(echo run_release)"
+        export DISPATCH_ACTION="$(echo run_release_libs_gen)"
         echo "::set-env name=NEW_DISPATCH_ACTION::$DISPATCH_ACTION"
 
     - name: Repository Dispatch
