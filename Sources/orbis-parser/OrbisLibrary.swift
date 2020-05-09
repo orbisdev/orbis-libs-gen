@@ -6,5 +6,5 @@ struct OrbisLibrary: Codable {
     let is_export: Bool
     let symbols: [OrbisSymbol]
     
-    var assembly: String { symbols.reduce("") { is_export ? $0 + $1.assembly : $0 }}
+    var assembly: String { is_export ? symbols.reduce("") { $0 + $1.assembly }  : "" }
 }
