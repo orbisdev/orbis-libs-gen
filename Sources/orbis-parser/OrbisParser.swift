@@ -35,8 +35,11 @@ private extension OrbisParser {
         do {
             let sprx = try JSONDecoder().decode(OrbisSPRX.self, from: data)
             let folderUlr = Constants.outputPath.appendingPathComponent(libraryName)
+            let symbols = sprx.assemblyFiles
+            guard symbols.count > 0  else { return }
+            
             prepareFolder(url: folderUlr)
-            sprx.assemblyFiles.forEach{
+            symbols.forEach {
                 createAssemblyFile(folderUlr.appendingPathComponent($0.key).appendingPathExtension("S").path,
                                    content: $0.value)
             }
