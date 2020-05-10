@@ -15,22 +15,11 @@ struct OrbisSymbol: Codable {
     let type: SymbolType?
     private var assemblyType: String { self.type == .Object ? "@object" : "@function" }
     private var assemblySection: String { self.type == .Object ? "ostubs" : "fstubs" }
-    
-    var assembly: String {
-        guard let name = name else { return ""}
-        return """
-            .global \(name)
-            .type \(name), \(assemblyType)
-            \(name):
-                .quad 0x\(hex_id)
-            
-            """.trimmingCharacters(in: .whitespaces)
-    }
-    
+        
     func assembly(section: String) -> String {
         guard let name = name else { return ""}
         return """
-            .section .orbis.\(assemblySection).\(section).\(name),\"ax\",%progbits
+            .section .orbis.\(assemblySection).\(section),\"ax\",%progbits
             .global \(name)
             .type \(name), \(assemblyType)
             \(name):
