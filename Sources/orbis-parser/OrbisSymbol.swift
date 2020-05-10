@@ -14,12 +14,11 @@ struct OrbisSymbol: Codable {
     let encoded_id: String
     let type: SymbolType?
     private var assemblyType: String { self.type == .Object ? "@object" : "@function" }
-    private var assemblySection: String { self.type == .Object ? "ostubs" : "fstubs" }
         
     func assembly(section: String) -> String {
         guard let name = name else { return ""}
         return """
-            .section .orbis.\(assemblySection).\(section),\"ax\",%progbits
+            .section .orbis.stubs.\(section),\"ax\",%progbits
             .global \(name)
             .type \(name), \(assemblyType)
             \(name):
