@@ -5,15 +5,12 @@ struct OrbisModule: Codable {
     let version_major: Int
     let version_minor: Int
     let libraries: [OrbisLibrary]
-        
-    var assembly: String {
-        libraries.reduce("") {
-            guard name == $1.name else { return $0 }
+    
+    var assemblyFiles: [String: String] {
+        libraries.reduce(into: [:]) {
+            guard $1.name == name else { return }
             let section = "\(name).\(version_major).\(version_minor).\($1.name).\($1.version)"
-            return """
-            \($0)
-            \($1.assembly(section: section))
-            """.trimmingCharacters(in: .whitespaces)
+            $0.merge($1.assemblyFiles(section: section)) { (current, _) in current }
         }
     }
 }

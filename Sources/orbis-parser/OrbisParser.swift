@@ -8,7 +8,7 @@ private enum Constants {
 }
 
 class OrbisParser {
-    init() { prepare() }
+    init() { prepareFolder(url: Constants.outputPath) }
     func parse() { filesToParse.forEach { parseFile($0) } }
 }
 
@@ -29,13 +29,18 @@ private extension OrbisParser {
     }
     
     func parseFile(_ fileURL: URL) {
-        let filename = fileURL.lastPathComponent.replacingOccurrences(of: Constants.sprxFiles, with: Constants.sFiles)
+        let libraryName = fileURL.lastPathComponent.replacingOccurrences(of: Constants.sprxFiles, with: "")
         
-        guard Libraries().known.contains(filename), let data = try? Data(contentsOf: fileURL) else { return }
+        guard Libraries().known.contains(libraryName), let data = try? Data(contentsOf: fileURL) else { return }
         do {
             let sprx = try JSONDecoder().decode(OrbisSPRX.self, from: data)
-
-            createAssemblyFile(filename, content: sprx.assembly)
+            let folderUlr = Constants.outputPath.appendingPathComponent(libraryName)
+            prepareFolder(url: folderUlr)
+            sprx.assemblyFiles.forEach{
+                createAssemblyFile(folderUlr.appendingPathComponent($0.key).appendingPathExtension("S").path,
+                                   content: $0.value)
+            }
+            
         } catch {
             print(fileURL.lastPathComponent)
             print(error)
@@ -44,18 +49,17 @@ private extension OrbisParser {
     
     func createAssemblyFile(_ fileName: String, content: String) {
         let fileManager = FileManager.default
-        let newFile = Constants.outputPath.appendingPathComponent(fileName).path
         
-        if(!fileManager.fileExists(atPath:newFile)){
-            fileManager.createFile(atPath: newFile, contents: content.data(using: .utf8), attributes: nil)
+        if(!fileManager.fileExists(atPath:fileName)){
+            fileManager.createFile(atPath: fileName, contents: content.data(using: .utf8), attributes: nil)
         }else{
-            print("\(newFile) was already created")
+            print("\(fileName) was already created")
         }
     }
     
-    func prepare() {
+    func prepareFolder(url: URL) {
         // Remove and create output dir
-        try? FileManager.default.removeItem(at: Constants.outputPath)
-        try? FileManager.default.createDirectory(at: Constants.outputPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.removeItem(at: url)
+        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     }
 }
