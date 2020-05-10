@@ -7,7 +7,8 @@ struct OrbisLibrary: Codable {
     let symbols: [OrbisSymbol]
     
     func assemblyFiles(section: String) -> [String: String] {
-        symbols.reduce(into: [:]) {
+        guard is_export else { return [:] }
+        return symbols.reduce(into: [:]) {
             guard let symbolName = $1.name else { return }
             let keyName = "\(name).\(symbolName)"
             $0[keyName] = $1.assembly(section: section)
