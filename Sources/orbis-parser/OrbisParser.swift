@@ -34,12 +34,11 @@ private extension OrbisParser {
         guard Libraries().known.contains(libraryName), let data = try? Data(contentsOf: fileURL) else { return }
         do {
             let sprx = try JSONDecoder().decode(OrbisSPRX.self, from: data)
-            let symbols = sprx.assemblyFiles
+            let symbols = sprx.assemblyContent
             guard symbols.count > 0  else { return }
             
-            let libraryContent = symbols.reduce("") { "\($0)\n\($1.value)" }
             let libraryPath = Constants.outputPath.appendingPathComponent(libraryName).appendingPathExtension("S")
-            createAssemblyFile(libraryPath.path, content: libraryContent)
+            createAssemblyFile(libraryPath.path, content: symbols)
         } catch {
             print(fileURL.lastPathComponent)
             print(error)

@@ -5,9 +5,5 @@ struct OrbisSPRX: Codable {
     let shared_object_names: [String]?
     let modules: [OrbisModule]
     
-    var assemblyFiles: [String: String] {
-        modules.reduce(into: [:]) {
-            $0.merge($1.assemblyFiles) { (current, _) in current }
-        }
-    }
+    var assemblyContent: String { modules.reduce("") { $0 + $1.assemblyFiles } }
 }
