@@ -29,6 +29,7 @@ struct Libraries {
         "libSceNet",
         "libSceNetCtl",
         "libSceNetCtlApDialog",
+        "libSceOrbisCompat",
         "libScePad",
         "libScePadTracker",
         "libScePigletv2VSH",
