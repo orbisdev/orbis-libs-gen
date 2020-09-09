@@ -4,6 +4,7 @@ struct Libraries {
     let known = [
         "libSceAc3Enc",
         "libSceAjm",
+        "libSceAppInstUtil",
         "libSceAudioOut",
         "libSceCamera",
         "libSceFont",
