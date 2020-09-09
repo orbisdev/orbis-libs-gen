@@ -6,6 +6,7 @@ struct Libraries {
         "libSceAjm",
         "libSceAppInstUtil",
         "libSceAudioOut",
+        "libSceBgft",
         "libSceCamera",
         "libSceFont",
         "libSceFontFt",
