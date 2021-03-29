@@ -27,6 +27,7 @@ struct Libraries {
         "libSceImeDialog",
         "libSceKeyboard",
         "libSceLibcInternal",
+        "libSceLncUtil",
         "libSceMsgDialog",
         "libSceMouse",
         "libSceMove",
