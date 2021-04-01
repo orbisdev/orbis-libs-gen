@@ -37,13 +37,13 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/') != true
       run: |
         export TAGNAME="snapshot_$(date +'%Y_%m_%d_%H%M%S')"
-        echo "::set-env name=NEW_TAGNAME::$TAGNAME"
+        echo "NEW_TAGNAME=$TAGNAME" >> $GITHUB_ENV
     
     - name: Use tag name
       if: startsWith(github.ref, 'refs/tags/')
       run: |
         export TAGNAME="$(echo ${GITHUB_REF##*/})"
-        echo "::set-env name=NEW_TAGNAME::$TAGNAME"
+        echo "NEW_TAGNAME=$TAGNAME" >> $GITHUB_ENV
     
     - name: Release
       if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
@@ -58,13 +58,13 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/') != true && github.ref != 'refs/heads/master'
       run: |
         export DISPATCH_ACTION="$(echo run_build_libs_gen)"
-        echo "::set-env name=NEW_DISPATCH_ACTION::$DISPATCH_ACTION"
+        echo "NEW_DISPATCH_ACTION=$DISPATCH_ACTION" >> $GITHUB_ENV
     
     - name: Send Release action
       if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
       run: |
         export DISPATCH_ACTION="$(echo run_release_libs_gen)"
-        echo "::set-env name=NEW_DISPATCH_ACTION::$DISPATCH_ACTION"
+        echo "NEW_DISPATCH_ACTION=$DISPATCH_ACTION" >> $GITHUB_ENV
 
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1
